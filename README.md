@@ -1,6 +1,7 @@
 # securevm-autodeploy-postman
 Postman RESTAPI Examples
 Some example REST API scripts using Postman.  This uses some environment variables to setup a CloudLink SecureVM instance quickly
+Tested on CloudLink 5.5 and ScaleIO 2.0
 
 Created by James Scott
 
