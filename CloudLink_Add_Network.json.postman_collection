@@ -17,22 +17,22 @@
 		{
 			"id": "02056b50-cb3a-1328-574e-54dfcd4df0fb",
 			"headers": "Content-Type: application/json\nAuthorization: Bearer {{token}}\n",
-			"url": "https://{{clc1}}/cloudlink/rest/securevm/network/network/ip",
+			"url": "https://{{clc1}}/cloudlink/rest/securevm/network/Network_1/ip",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;",
+			"tests": "tests[\"response code is 201\"] = responseCode.code === 201;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1459798985130,
+			"time": 1459801585887,
 			"name": "Add IP",
 			"description": "Creates initial network group",
 			"collectionId": "86c31bfb-b587-db83-c6cd-bb747ca26bd0",
 			"responses": [],
-			"rawModeData": "{ \n\"ip\": \"{{network}}\",\n\"name\": {{date}}}\n}"
+			"rawModeData": "{ \n\"ip\": \"{{network}}\",\n\"name\": \"Network_1\"\n}"
 		},
 		{
 			"id": "73edd54a-bd6e-b0c9-451a-d79b4f29b0bb",
@@ -58,21 +58,21 @@
 			"id": "7a1b4751-2636-dea6-c12c-ef77a2d6c2ff",
 			"headers": "Content-Type: application/json\nAuthorization: Bearer {{token}}\n",
 			"url": "https://{{clc1}}/cloudlink/rest/securevm/network",
-			"preRequestScript": "postman.setEnvironmentVariable(\"date\", JSON.stringify(new Date().toJSON()));",
+			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
 			"data": [],
 			"dataMode": "raw",
 			"version": 2,
-			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;",
+			"tests": "tests[\"response code is 201\"] = responseCode.code === 201;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1459799018425,
+			"time": 1459801571762,
 			"name": "Create Network Group",
 			"description": "Creates initial network group",
 			"collectionId": "86c31bfb-b587-db83-c6cd-bb747ca26bd0",
 			"responses": [],
-			"rawModeData": "{ \n\"name\": \"network\",\n\"description\": \"created\"},\n}"
+			"rawModeData": "{ \n\"name\": \"Network_1\",\n\"description\": \"Example Network Group\"},\n}"
 		},
 		{
 			"id": "b15368b6-2581-57ce-b02b-59a30139f615",
@@ -87,12 +87,12 @@
 			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1459799191436,
+			"time": 1459801590360,
 			"name": "Add IP to Default Group",
 			"description": "Creates initial network group",
 			"collectionId": "86c31bfb-b587-db83-c6cd-bb747ca26bd0",
 			"responses": [],
-			"rawModeData": "{ \n\"ip\": ['network'],\n\"encryption_policy\": \"encrypt_none\"}\n}"
+			"rawModeData": "{ \n\"networks\": [\"Network_1\"],\n\"encryption_policy\": \"encrypt_none\"}\n}"
 		}
 	]
 }

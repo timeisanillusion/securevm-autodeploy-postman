@@ -1,0 +1,140 @@
+{
+	"id": "9323a56c-f9a7-9cc6-f098-c0efd91097e3",
+	"name": "CloudLink_Encrypt_Device",
+	"description": "",
+	"order": [
+		"f8d5562f-ea3d-5384-7d9a-7acc4c4942de",
+		"dde02100-f16f-e9e4-5190-8fd975235b0e",
+		"e03404ae-890a-d9f7-478c-897028ba8a75",
+		"57c1ba6c-eed8-da09-40de-4d5131a1d9c3"
+	],
+	"folders": [],
+	"timestamp": 0,
+	"owner": "380773",
+	"remoteLink": null,
+	"public": false,
+	"requests": [
+		{
+			"folder": null,
+			"id": "57c1ba6c-eed8-da09-40de-4d5131a1d9c3",
+			"name": "Get encrypt mount label",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "product",
+					"value": "vm",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "file",
+					"value": {
+						"0": {
+							"name": "perpetual_100tib_demo.lic",
+							"lastModified": 1458741297148,
+							"lastModifiedDate": "2016-03-23T13:54:57.148Z",
+							"webkitRelativePath": "",
+							"size": 175,
+							"type": ""
+						},
+						"length": 1
+					},
+					"type": "file",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://{{clc1}}/cloudlink/rest/securevm",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\nvar parsed = JSON.parse(responseBody);\n\n//Currently only stores/uses one valid mount\nfor (var i = 0; i < parsed.length; ++i)\n                    {\n                        for (var j = 0; j < parsed[i].resources.length; ++j)\n                        {\n              /* If the label has /dev/mapper in the name then save the details*/\n              var mount = parsed[i].resources[j].label;\n              var myindex = mount.indexOf('/dev/mapper')\n              if (myindex >= 0 ){\n                                postman.setEnvironmentVariable(\"clientencmount\", parsed[i].resources[j].label);\n              }\n            }  \n                    }",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "9323a56c-f9a7-9cc6-f098-c0efd91097e3"
+		},
+		{
+			"folder": null,
+			"id": "dde02100-f16f-e9e4-5190-8fd975235b0e",
+			"name": "Get ID info",
+			"dataMode": "params",
+			"data": [
+				{
+					"key": "product",
+					"value": "vm",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "file",
+					"value": {
+						"0": {
+							"name": "perpetual_100tib_demo.lic",
+							"lastModified": 1458741297148,
+							"lastModifiedDate": "2016-03-23T13:54:57.148Z",
+							"webkitRelativePath": "",
+							"size": 175,
+							"type": ""
+						},
+						"length": 1
+					},
+					"type": "file",
+					"enabled": true
+				}
+			],
+			"rawModeData": null,
+			"descriptionFormat": null,
+			"description": "",
+			"headers": "Authorization: Bearer {{token}}\n",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "https://{{clc1}}/cloudlink/rest/securevm",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\nvar parsed = JSON.parse(responseBody);\n\n//Currently only stores/uses one valid mount\nfor (var i = 0; i < parsed.length; ++i)\n                    {\n                        //var line = parsed[i].name + '(' + parsed[i].uuid + ') ' + parsed[i].status;\n                        for (var j = 0; j < parsed[i].resources.length; ++j)\n                        {\n              /* If the device has /dev/sd in the name then save the details*/\n              var mount = parsed[i].resources[j].mpoint;\n              var myindex = mount.indexOf('/dev/sd')\n              if (myindex >= 0 ){\n                  postman.setEnvironmentVariable(\"clientuuid\", parsed[i].uuid);\n                                postman.setEnvironmentVariable(\"clientmount\", parsed[i].resources[j].mpoint);\n                                postman.setEnvironmentVariable(\"clientmountid\", parsed[i].resources[j].id)\n              }\n            }  \n                    }\n\n\n\n\n\n;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "9323a56c-f9a7-9cc6-f098-c0efd91097e3"
+		},
+		{
+			"folder": null,
+			"id": "e03404ae-890a-d9f7-478c-897028ba8a75",
+			"name": "Encrypt the SDS device",
+			"dataMode": "raw",
+			"data": [],
+			"descriptionFormat": null,
+			"description": "",
+			"headers": "Authorization: Bearer {{token}}\nContent-Type: application/json\n",
+			"method": "PUT",
+			"pathVariables": {},
+			"url": "https://{{clc1}}/cloudlink/rest/securevm/{{clientuuid}}/encryption/{{clientmountid}}",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\n",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "9323a56c-f9a7-9cc6-f098-c0efd91097e3",
+			"rawModeData": "{ \n\"encrypt\": \"encrypt\"\n}"
+		},
+		{
+			"folder": null,
+			"id": "f8d5562f-ea3d-5384-7d9a-7acc4c4942de",
+			"name": "Login as API User",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "https://{{clc1}}/cloudlink/oauth/token?grant_type=client_credentials&client_id={{apiuser}}&client_secret={{apipwd}}&scope=all",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\ntests[\"body contains authenticated\"] = responseBody.has(\"bearer\");\nvar data = JSON.parse(responseBody);\npostman.setEnvironmentVariable(\"token\", data.access_token); ",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "9323a56c-f9a7-9cc6-f098-c0efd91097e3"
+		}
+	]
+}
