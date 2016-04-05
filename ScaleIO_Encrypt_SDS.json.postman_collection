@@ -8,8 +8,8 @@
 		"129f8413-f99d-65a4-8894-f9f757be4d7b",
 		"3e848cac-0ae0-a302-fc62-61b703a055b6",
 		"95cb52be-4ecf-c3eb-0ff1-a7a22cd1cbc7",
-		"1c5c5a83-09e0-d9fb-289d-5ae3332b6560",
-		"dbf32255-e1ac-a7a6-a3e9-2dd1ca848860"
+		"dbf32255-e1ac-a7a6-a3e9-2dd1ca848860",
+		"1c5c5a83-09e0-d9fb-289d-5ae3332b6560"
 	],
 	"folders": [],
 	"timestamp": 0,
@@ -142,7 +142,7 @@
 			"headers": "Content-Type: application/json\nAuthorization: Basic OllXUnRhVzQ2TVRRMU9UZzROemMyT0RBNU16bzBZVGxsTVRsa05HWXlNR001TXpFNE5EVm1PRGMzWVRZNVpESmxNRFJqTlE=\n",
 			"method": "POST",
 			"pathVariables": {},
-			"url": "https://{{scaleio1}}:443/api/instances/Sds::{sdsid}/action/removeSds",
+			"url": "https://{{scaleio1}}:443/api/instances/Sds::{{sdsid}}/action/removeSds",
 			"preRequestScript": "",
 			"tests": "//No tests, just try to remove if needed",
 			"currentHelper": "basicAuth",

@@ -3,7 +3,7 @@
 	"name": "CloudLink_Encrypt_Device",
 	"description": "",
 	"order": [
-		"f8d5562f-ea3d-5384-7d9a-7acc4c4942de",
+		"83d3083e-fab1-0d59-42a6-48ba88666b83",
 		"dde02100-f16f-e9e4-5190-8fd975235b0e",
 		"e03404ae-890a-d9f7-478c-897028ba8a75",
 		"57c1ba6c-eed8-da09-40de-4d5131a1d9c3"
@@ -52,6 +52,24 @@
 			"url": "https://{{clc1}}/cloudlink/rest/securevm",
 			"preRequestScript": "",
 			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\nvar parsed = JSON.parse(responseBody);\n\n//Currently only stores/uses one valid mount\nfor (var i = 0; i < parsed.length; ++i)\n                    {\n                        for (var j = 0; j < parsed[i].resources.length; ++j)\n                        {\n              /* If the label has /dev/mapper in the name then save the details*/\n              var mount = parsed[i].resources[j].label;\n              var myindex = mount.indexOf('/dev/mapper')\n              if (myindex >= 0 ){\n                                postman.setEnvironmentVariable(\"clientencmount\", parsed[i].resources[j].label);\n              }\n            }  \n                    }",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"collectionId": "9323a56c-f9a7-9cc6-f098-c0efd91097e3"
+		},
+		{
+			"id": "83d3083e-fab1-0d59-42a6-48ba88666b83",
+			"name": "Login as API User",
+			"dataMode": "params",
+			"data": [],
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "POST",
+			"pathVariables": {},
+			"url": "https://{{clc1}}/cloudlink/oauth/token?grant_type=client_credentials&client_id={{apiuser}}&client_secret={{apipwd}}&scope=all",
+			"preRequestScript": "",
+			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\ntests[\"body contains authenticated\"] = responseBody.has(\"bearer\");\nvar data = JSON.parse(responseBody);\npostman.setEnvironmentVariable(\"token\", data.access_token); ",
 			"currentHelper": "normal",
 			"helperAttributes": {},
 			"collectionId": "9323a56c-f9a7-9cc6-f098-c0efd91097e3"
@@ -116,25 +134,6 @@
 			"helperAttributes": {},
 			"collectionId": "9323a56c-f9a7-9cc6-f098-c0efd91097e3",
 			"rawModeData": "{ \n\"encrypt\": \"encrypt\"\n}"
-		},
-		{
-			"folder": null,
-			"id": "f8d5562f-ea3d-5384-7d9a-7acc4c4942de",
-			"name": "Login as API User",
-			"dataMode": "params",
-			"data": [],
-			"rawModeData": null,
-			"descriptionFormat": "html",
-			"description": "",
-			"headers": "",
-			"method": "POST",
-			"pathVariables": {},
-			"url": "https://{{clc1}}/cloudlink/oauth/token?grant_type=client_credentials&client_id={{apiuser}}&client_secret={{apipwd}}&scope=all",
-			"preRequestScript": "",
-			"tests": "tests[\"response code is 200\"] = responseCode.code === 200;\ntests[\"body contains authenticated\"] = responseBody.has(\"bearer\");\nvar data = JSON.parse(responseBody);\npostman.setEnvironmentVariable(\"token\", data.access_token); ",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"collectionId": "9323a56c-f9a7-9cc6-f098-c0efd91097e3"
 		}
 	]
 }
