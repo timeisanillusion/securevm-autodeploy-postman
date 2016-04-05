@@ -16,6 +16,8 @@ Created by James Scott
 
 <b>Complete_SDS_Test.json.postman_collection</b> : Runs a complete example, encrypts a device in CLC then adds this to MDM
 
+<b>CloudLink_ScaleIO_vsphere.postman_environment</b> : Environment variables used/set 
+
 
 These are very basic examples, with a number of assumptions/limitations:
 - Currently only demos a single device on a single SDS machine (Works on a single IP)
